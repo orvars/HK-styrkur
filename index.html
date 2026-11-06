@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="is" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>HK styrkur – 12 vikur</title>
+<style>
+:root{--bg:#f6f4f2;--card:#ffffff;--ink:#1f2a44;--muted:#5f6675;--red:#c8102e;--red2:#a50d26;--band:#fbedef;--line:#e6e1dd;--ok:#2e7d32;--okbg:#e8f5e9;--shadow:0 1px 3px rgba(0,0,0,.08)}
+@media (prefers-color-scheme: dark){:root{--bg:#14171f;--card:#1e2330;--ink:#eef0f5;--muted:#a5abb8;--red:#e23a52;--red2:#c8102e;--band:#2a2230;--line:#323848;--ok:#66bb6a;--okbg:#1f3322;--shadow:none}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.4}
+header{background:var(--red);color:#fff;padding-block:14px 12px;padding-inline:16px;position:sticky;inset-block-start:0;z-index:5;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+header h1{margin:0;font-size:1.15rem}
+header .sub{font-size:.85rem;opacity:.9}
+.bar{display:flex;gap:8px;margin-block-start:10px;flex-wrap:wrap;align-items:center}
+select,button{font:inherit}
+select{padding:8px 10px;border-radius:10px;border:0;font-weight:600;color:#1f2a44;background:#fff}
+.seg{display:flex;background:rgba(255,255,255,.2);border-radius:12px;padding:3px}
+.seg button{border:0;background:transparent;color:#fff;padding:8px 16px;border-radius:9px;font-weight:700;cursor:pointer}
+.seg button.on{background:#fff;color:var(--red2)}
+main{max-width:760px;margin-inline:auto;padding:14px}
+.info{background:var(--card);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);margin-block-end:12px;border-inline-start:5px solid var(--red)}
+.info .row{display:flex;gap:14px;flex-wrap:wrap;font-size:.92rem}
+.info b{color:var(--red)}
+.pill{display:inline-block;background:var(--band);border-radius:20px;padding:2px 10px;font-weight:700;font-size:.85rem}
+.prog{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin-block-start:10px}
+.prog i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+h2{font-size:1rem;margin:18px 4px 8px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.card{background:var(--card);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);margin-block-end:10px;border:2px solid transparent;transition:border-color .2s}
+.card.done{border-color:var(--ok);background:var(--okbg)}
+.pair{border-inline-start:4px solid var(--red);padding-inline-start:8px;margin-block-end:14px}
+.pairlbl{font-size:.8rem;color:var(--muted);margin:0 0 6px 4px}
+.top{display:flex;gap:10px;align-items:flex-start}
+.ord{flex:none;width:38px;height:38px;border-radius:10px;background:var(--red);color:#fff;font-weight:800;display:grid;place-items:center}
+.nm{font-weight:700;font-size:1.05rem}
+.en{font-size:.8rem;color:var(--muted)}
+.dose{margin-block-start:4px;font-weight:700}
+.dose span{color:var(--muted);font-weight:500}
+.tip{font-size:.9rem;margin-block-start:6px}
+.easy{font-size:.88rem;margin-block-start:6px;color:var(--muted);display:none}
+.showeasy .easy{display:block}
+.sets{display:flex;gap:8px;margin-block-start:10px;flex-wrap:wrap;align-items:center}
+.set{width:44px;height:44px;border-radius:50%;border:2px solid var(--red);background:transparent;color:var(--red);font-weight:800;cursor:pointer;font-size:1rem}
+.set.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.rest{margin-inline-start:auto;border:0;background:var(--band);color:var(--ink);border-radius:10px;padding:10px 12px;font-weight:700;cursor:pointer}
+.wu{list-style:none;margin:0;padding:0}
+.wu li{display:flex;gap:10px;align-items:center;padding-block:8px;border-block-end:1px solid var(--line);cursor:pointer}
+.wu li:last-child{border:0}
+.chk{flex:none;width:26px;height:26px;border-radius:7px;border:2px solid var(--red);display:grid;place-items:center;color:#fff;font-weight:900}
+.wu li.on .chk{background:var(--ok);border-color:var(--ok)}
+.wu li.on .t{text-decoration:line-through;color:var(--muted)}
+.wu .d{margin-inline-start:auto;color:var(--muted);font-size:.9rem}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-block:6px 0}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
+.btn.red{background:var(--red);color:#fff}
+.tests input{width:80px;padding:6px;border-radius:8px;border:1px solid var(--line);font:inherit;background:var(--bg);color:var(--ink)}
+.tests label{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-block:6px}
+#timer{position:fixed;inset-inline:0;inset-block-end:0;background:var(--ink);color:var(--bg);padding:12px 16px;display:none;align-items:center;gap:12px;z-index:9;box-shadow:0 -2px 8px rgba(0,0,0,.25)}
+#timer.show{display:flex}
+#timer .big{font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums;min-width:90px}
+#timer button{border:0;border-radius:10px;padding:10px 12px;font-weight:700;cursor:pointer}
+#timer.zero{background:var(--ok)}
+.rules{font-size:.9rem;color:var(--muted)}
+.rules li{margin-block:4px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:20px 10px 90px}
+</style>
+</head>
+<body>
+<header>
+  <h1>HK-hlaup · Styrkur fyrir hlaupara</h1>
+  <div class="sub">12 vikur · 2 æfingar á viku · u.þ.b. 45 mín</div>
+  <div class="bar">
+    <select id="week" aria-label="Vika"></select>
+    <div class="seg" role="tablist"><button id="tA" class="on">Styrkur A</button><button id="tB">Styrkur B</button></div>
+  </div>
+</header>
+<main id="app"></main>
+<div id="timer" role="status" aria-live="polite">
+  <div class="big" id="tt">0:00</div><div style="flex:1">Hvíld</div>
+  <button id="tplus">+15 s</button><button id="tstop">Loka</button>
+</div>
+<footer>HK-hlaup · Styrktarprógram · Ef verkur (ekki bara þreyta) kemur í hné, hásin eða mjóbak: sleppið æfingunni og leitið til sjúkraþjálfara ef hann heldur áfram.</footer>
+<script>
+const D={"A": {"name": "Styrkur A", "focus": "Hnébeygja og einfóta (+ ýta)", "ph": [{"title": "FASI 1 (Vikur 1–3) — Grunnur: tækni og stöðugleiki", "ex": [{"o": "1", "n": "Pogo-hopp (lítil)", "en": "Pogo Jumps", "m": "2×15", "mv": "Kálfar / Fjöðrun", "tip": "Stuttar, léttar snertingar. Hné nánast bein.", "easy": "Hraðar hælalyftur"}, {"o": "2A", "n": "Goblet hnébeygja", "en": "Goblet Squat", "m": "3×10–12", "mv": "Framlæri / Rassvöðvar", "tip": "Bringa upp, hné fylgja tám, 3 sek niður.", "easy": "Hnébeygja án þyngdar á bekk"}, {"o": "2B", "n": "Kálfalyftur á tröppu", "en": "Standing Calf Raise", "m": "3×12–15", "mv": "Kálfar", "tip": "Fullt hreyfisvið, 1 sek hlé efst, hægt niður.", "easy": "Báðir fætur á gólfi"}, {"o": "3A", "n": "Uppstig á kassa", "en": "Step Up", "m": "3×8/fót", "mv": "Framlæri / Rass / Einfóta", "tip": "Allur fótur á kassa, mjaðmagrind lárétt.", "easy": "Lægri kassi"}, {"o": "3B", "n": "Armbeygjur", "en": "Push Up", "m": "3×8–12", "mv": "Brjóst / Axlir / Þríhöfði", "tip": "Bein lína frá höfði í hæla.", "easy": "Á hnjám eða hendur á bekk"}, {"o": "4A", "n": "Mjaðmalyfta á einum fæti", "en": "Single Leg Glute Bridge", "m": "2–3×10/fót", "mv": "Rassvöðvar / Mjaðmastjórn", "tip": "Kreistu rassinn 1 sek efst, mjaðmir láréttar.", "easy": "Báðir fætur í gólfi"}, {"o": "4B", "n": "Dauð bjalla (Dead bug)", "en": "Dead Bug", "m": "3×8/hlið", "mv": "Kviður / Kjarni", "tip": "Mjóbak þrýst í gólfið alla æfinguna.", "easy": "Aðeins fætur hreyfast"}]}, {"title": "FASI 2 (Vikur 4–6) — Uppbygging: meiri þyngd og einfóta álag", "ex": [{"o": "1", "n": "Pogo-hopp + hnébeygjuhopp", "en": "Pogo Jumps + Squat Jump", "m": "2×20 + 3×5", "mv": "Kálfar / Sprengikraftur", "tip": "Lending mjúk og hljóðlát, full hvíld milli setta.", "easy": "Aðeins pogo-hopp"}, {"o": "2A", "n": "Goblet hnébeygja (þyngri)", "en": "Goblet Squat", "m": "3×8–10", "mv": "Framlæri / Rassvöðvar", "tip": "Þyngri bjalla en í fasa 1, 3 sek niður.", "easy": "Hægt tempó 4 sek niður"}, {"o": "2B", "n": "Kálfalyftur með beygðu hné", "en": "Seated Calf Raise / Bent Knee Calf Raise", "m": "3×12", "mv": "Sólavöðvi (soleus) / Hásin", "tip": "Sitjandi með þyngd á lærum eða hné beygð standandi.", "easy": "Án þyngdar, einn fótur í einu"}, {"o": "3A", "n": "Splitt hnébeygja (Split squat)", "en": "Split Squat", "m": "3×8/fót", "mv": "Framlæri / Rass / Einfóta", "tip": "Aftara hné beint niður, framhné yfir miðjan fót.", "easy": "Halda í vegg til stuðnings"}, {"o": "3B", "n": "Hálfkrjúpandi axlapressa", "en": "Half Kneeling Single Arm Press", "m": "3×8/hlið", "mv": "Axlir / Kjarni", "tip": "Rass spenntur, rifbein niður, pressa beint upp.", "easy": "Pressa með teygju"}, {"o": "4A", "n": "Hliðargöngur með teygju", "en": "Lateral Band Walk", "m": "3×12 skref/hlið", "mv": "Hliðarmjaðmir (glute med)", "tip": "Teygja fyrir ofan hné, hálf hnébeygja, stutt skref.", "easy": "Án teygju"}, {"o": "4B", "n": "Hliðarplanki", "en": "Side Plank", "m": "3×30 sek/hlið", "mv": "Hliðarkjarni", "tip": "Mjaðmir upp, bein lína.", "easy": "Á hnjám"}]}, {"title": "FASI 3 (Vikur 7–9) — Styrkur: þyngri lyftur", "ex": [{"o": "1", "n": "Lágt kassahopp", "en": "Box Jump", "m": "3×5", "mv": "Sprengikraftur / Lending", "tip": "Hoppa upp, stíga niður. Gæði fram yfir hæð.", "easy": "Hnébeygjuhopp á gólfi"}, {"o": "2A", "n": "Framhnébeygja eða þung goblet hnébeygja", "en": "Front Squat", "m": "3×6–8", "mv": "Framlæri / Rassvöðvar", "tip": "Þungt en stöðugt, haldið bolnum uppréttum.", "easy": "Goblet með hægu tempói"}, {"o": "2B", "n": "Einfóta kálfalyftur með þyngd", "en": "Single Leg Calf Raise (Dumbbell)", "m": "3×10/fót", "mv": "Kálfar / Hásin", "tip": "Handlóð í hendi, hlé efst, 3 sek niður.", "easy": "Einfóta án þyngdar"}, {"o": "3A", "n": "Búlgörsk hnébeygja", "en": "Bulgarian Split Squat", "m": "3×6–8/fót", "mv": "Framlæri / Rass / Einfóta", "tip": "Afturfótur á bekk, þyngd í höndum.", "easy": "Án þyngdar"}, {"o": "3B", "n": "Armbeygjur með fætur á bekk", "en": "Decline Push Up", "m": "3×8–10", "mv": "Brjóst / Axlir", "tip": "Kjarni spenntur, ekki láta mjaðmir síga.", "easy": "Venjulegar armbeygjur"}, {"o": "4A", "n": "Hliðarútfall (Lateral lunge)", "en": "Lateral Lunge", "m": "3×8/hlið", "mv": "Innra/ytra læri & rass", "tip": "Þyngdin í hælinn, hnéð fylgir tám.", "easy": "Styttra skref"}, {"o": "4B", "n": "Pallof-pressa með teygju", "en": "Pallof Press", "m": "3×10/hlið", "mv": "Snúningsviðnám / Kjarni", "tip": "Rifbein yfir mjaðmagrind, standist snúninginn.", "easy": "Krjúpandi útgáfa"}]}, {"title": "FASI 4 (Vikur 10–12) — Kraftur: þungt + sprengikraftur", "ex": [{"o": "1", "n": "Stökk (Bounds)", "en": "Bounding", "m": "3×6/fót", "mv": "Kraftur / Hlaupaskref", "tip": "Langt og hátt skref, lenda undir mjöðm. Á grasi/gervigrasi.", "easy": "Hnébeygjuhopp 3×5"}, {"o": "2A", "n": "Hnébeygja (þungt)", "en": "Back Squat", "m": "3×5–6", "mv": "Framlæri / Rassvöðvar", "tip": "Hægt niður, sprengikraftur upp. Stoppið áður en tæknin brotnar.", "easy": "Þyngsta goblet hnébeygja"}, {"o": "2B", "n": "Ísómetrískt kálfahald", "en": "Isometric Calf Raise Hold", "m": "3×30–45 sek/fót", "mv": "Kálfar / Hásin", "tip": "Hæll aðeins uppi á einum fæti, hné örlítið beygt, þyngd í hendi.", "easy": "Báðir fætur"}, {"o": "3A", "n": "Búlgörsk hnébeygja (þyngri)", "en": "Bulgarian Split Squat", "m": "3×6/fót", "mv": "Framlæri / Rass / Einfóta", "tip": "Hægt niður, kraftur upp.", "easy": "Án þyngdar, hægt tempó"}, {"o": "3B", "n": "Bekkpressa eða axlapressa með handlóðum", "en": "Dumbbell Bench Press", "m": "3×6–8", "mv": "Brjóst / Axlir", "tip": "Stöðugar herðablöð, stjórnuð hreyfing.", "easy": "Armbeygjur með hlé neðst"}, {"o": "4A", "n": "Kaupmannahafnarplanki (Copenhagen)", "en": "Copenhagen Plank", "m": "3×15–20 sek/hlið", "mv": "Innra læri / Mjaðmir", "tip": "Byrjið með hné á bekk, mjaðmir uppi.", "easy": "Hliðarplanki"}, {"o": "4B", "n": "Bóndaganga á annarri hlið", "en": "Suitcase Carry", "m": "3×30 m/hlið", "mv": "Kjarni / Gripur / Líkamsstaða", "tip": "Gangið hátt, hallist ekki undan þyngdinni.", "easy": "Léttari þyngd"}]}]}, "B": {"name": "Styrkur B", "focus": "Aftankeðja og mjaðmir (+ toga)", "ph": [{"title": "FASI 1 (Vikur 1–3) — Grunnur: mjaðmalyfta og mjaðmastjórn", "ex": [{"o": "1", "n": "Línuhopp fram/aftur", "en": "Line Hops (Forward/Back)", "m": "2×20", "mv": "Ökklar / Fjöðrun", "tip": "Létt á tábergi, hröð snerting.", "easy": "Sipp án sippubands"}, {"o": "2A", "n": "Mjaðmalyfta (Glute bridge) með þyngd", "en": "Weighted Glute Bridge", "m": "3×12", "mv": "Rassvöðvar / Aftanlæri", "tip": "Þyngd á mjöðmum, kreista 1 sek efst.", "easy": "Án þyngdar"}, {"o": "2B", "n": "Sköflungslyftur (Tibialis raise)", "en": "Tibialis Raise", "m": "3×15", "mv": "Sköflungur", "tip": "Bak við vegg, lyftu tánum hátt upp.", "easy": "Sitjandi"}, {"o": "3A", "n": "Einfóta réttstöðulyfta", "en": "Single Leg Romanian Deadlift", "m": "3×8/fót", "mv": "Aftanlæri / Rass / Jafnvægi", "tip": "Mjúkt hné, mjaðmir ýtast aftur, mjaðmagrind lárétt.", "easy": "Halda í vegg"}, {"o": "3B", "n": "Róður með teygju eða handlóði", "en": "Band Row / Dumbbell Row", "m": "3×10–12", "mv": "Efri bak / Axlir", "tip": "Draga herðablöð aftur og niður.", "easy": "Léttari teygja"}, {"o": "4A", "n": "Skeljaæfing með teygju", "en": "Banded Clamshell", "m": "2×15/hlið", "mv": "Hliðarmjaðmir", "tip": "Liggðu á hlið, opnaðu hné án þess að rúlla mjöðm.", "easy": "Án teygju"}, {"o": "4B", "n": "Fuglahundurinn", "en": "Bird Dog", "m": "3×8/hlið", "mv": "Bak / Kjarni", "tip": "Mjaðmir kyrrar, 2 sek hald efst.", "easy": "Aðeins fótur eða hönd"}]}, {"title": "FASI 2 (Vikur 4–6) — Uppbygging: þyngri mjaðmalyfta", "ex": [{"o": "1", "n": "Hliðarhopp yfir línu", "en": "Lateral Line Hops", "m": "3×20", "mv": "Ökklar / Hliðarstöðugleiki", "tip": "Hröð, lág hopp.", "easy": "Línuhopp fram/aftur"}, {"o": "2A", "n": "Rúmensk réttstöðulyfta (RDL)", "en": "Romanian Deadlift", "m": "3×8–10", "mv": "Aftanlæri / Rassvöðvar", "tip": "Langt bak, mjaðmir aftur, finndu teygju í aftanlæri.", "easy": "Ketilbjalla, léttara"}, {"o": "2B", "n": "Sköflungslyftur", "en": "Tibialis Raise", "m": "3×15–20", "mv": "Sköflungur", "tip": "Hægt niður, 1 sek efst.", "easy": "Sitjandi"}, {"o": "3A", "n": "Afturstig (Reverse lunge)", "en": "Reverse Lunge", "m": "3×8/fót", "mv": "Framlæri / Rass", "tip": "Stígðu aftur, mjaðmir beinar.", "easy": "Halda í vegg"}, {"o": "3B", "n": "Einarma róður", "en": "Single Arm Dumbbell Row", "m": "3×10/hlið", "mv": "Efri bak / Lats", "tip": "Hönd og hné á bekk, draga að mjöðm.", "easy": "Róður með teygju"}, {"o": "4A", "n": "Aftanlærisrenna (Slider curl)", "en": "Slider Hamstring Curl", "m": "3×8", "mv": "Aftanlæri", "tip": "Mjaðmir uppi allan tímann, handklæði/sokkar á gólfi.", "easy": "Aðeins niður (excentrískt)"}, {"o": "4B", "n": "Hliðarplanki með mjaðmadýfu", "en": "Side Plank Hip Dip", "m": "3×10/hlið", "mv": "Hliðarkjarni / Mjaðmir", "tip": "Síga mjúklega niður og þrýsta hátt upp.", "easy": "Á hnjám"}]}, {"title": "FASI 3 (Vikur 7–9) — Styrkur: þung mjaðmalyfta", "ex": [{"o": "1", "n": "Skautastökk (Skater jumps)", "en": "Skater Jumps", "m": "3×6/hlið", "mv": "Mjaðmastöðugleiki / Hliðarkraftur", "tip": "Stökk til hliðar, haltu lendingunni í 1 sek.", "easy": "Hliðarstig með hné-lyftu"}, {"o": "2A", "n": "Mjaðmalyfta á bekk (Hip thrust) þung", "en": "Barbell Hip Thrust", "m": "3×8", "mv": "Rassvöðvar", "tip": "Herðar á bekk, haka niður, læsa mjöðmum efst.", "easy": "Mjaðmalyfta á gólfi"}, {"o": "2B", "n": "Kálfalyftur með beygðu hné (þyngri)", "en": "Seated Calf Raise", "m": "3×12", "mv": "Sólavöðvi / Hásin", "tip": "Þyngri en í fasa 2, hægt niður.", "easy": "Án þyngdar"}, {"o": "3A", "n": "Einfóta réttstöðulyfta með þyngd", "en": "Single Leg Romanian Deadlift (Dumbbell)", "m": "3×8/fót", "mv": "Aftanlæri / Jafnvægi", "tip": "Bjalla í gagnstæðri hendi, hægt niður.", "easy": "Án þyngdar"}, {"o": "3B", "n": "Upphífingar með teygju eða niðurtog", "en": "Band Assisted Pull Up / Lat Pulldown", "m": "3×6–8", "mv": "Bak / Lats", "tip": "Brjóst að slá, stjórnað niður.", "easy": "Róður með teygju"}, {"o": "4A", "n": "Mjaðmalyfta á einum fæti á bekk", "en": "Single Leg Hip Thrust", "m": "3×10/fót", "mv": "Rassvöðvar / Mjaðmastjórn", "tip": "Herðar á bekk, mjaðmir láréttar.", "easy": "Á gólfi"}, {"o": "4B", "n": "Holustaða (Hollow hold)", "en": "Hollow Hold", "m": "3×20–30 sek", "mv": "Djúpkviður", "tip": "Mjóbak í gólfi. Styttu haldið ef bakið lyftist.", "easy": "Hné beygð"}]}, {"title": "FASI 4 (Vikur 10–12) — Kraftur: þungt + sprengikraftur", "ex": [{"o": "1", "n": "Einfóta hopp á staðnum", "en": "Single Leg Pogo Hops", "m": "3×10/fót", "mv": "Kálfar / Fjöðrun", "tip": "Stuttar snertingar, hné og mjöðm í línu.", "easy": "Pogo-hopp á tveimur"}, {"o": "2A", "n": "Réttstöðulyfta (trap bar eða ketilbjalla)", "en": "Trap Bar Deadlift", "m": "3×5–6", "mv": "Aftankeðja / Allur líkami", "tip": "Spenntur bolur, kraftur upp, stjórnað niður.", "easy": "Þung RDL með ketilbjöllu"}, {"o": "2B", "n": "Einfóta kálfalyftur, hratt upp/hægt niður", "en": "Single Leg Calf Raise", "m": "3×8/fót", "mv": "Kálfar / Fjöðrun", "tip": "Sprengikraftur upp, 3 sek niður.", "easy": "Báðir fætur"}, {"o": "3A", "n": "Einfóta réttstöðulyfta (þyngri)", "en": "Single Leg Romanian Deadlift (Dumbbell)", "m": "3×6/fót", "mv": "Aftanlæri / Jafnvægi", "tip": "Þyngri en í fasa 3, sama tækni.", "easy": "Léttari þyngd"}, {"o": "3B", "n": "Einarma róður (þungur)", "en": "Single Arm Dumbbell Row", "m": "3×6–8/hlið", "mv": "Efri bak / Lats", "tip": "Engin snúningur í bol.", "easy": "Róður með teygju"}, {"o": "4A", "n": "Aftanlærisrenna á einum fæti", "en": "Single Leg Slider Hamstring Curl", "m": "3×6/fót", "mv": "Aftanlæri", "tip": "Mjaðmir uppi, stjórnað út.", "easy": "Tveir fætur"}, {"o": "4B", "n": "Pallof-pressa með útrétt hald", "en": "Pallof Press Hold", "m": "3×8/hlið + 10 sek hald", "mv": "Snúningsviðnám / Kjarni", "tip": "Haldið útréttum höndum 10 sek í síðustu endurtekningu.", "easy": "Krjúpandi útgáfa"}]}]}, "W": [{"w": 1, "p": 1, "s": 2, "r": "10–12", "rpe": "6", "note": "Léttar þyngdir, læra hreyfingar. Upphafspróf í lok æfingar A.", "date": "9.11."}, {"w": 2, "p": 1, "s": 3, "r": "10–12", "rpe": "6–7", "note": "Bæta við þriðja settinu.", "date": "16.11."}, {"w": 3, "p": 1, "s": 3, "r": "10", "rpe": "7", "note": "Þyngja ef öll sett kláruðust með 3+ eftir í tankinum.", "date": "23.11."}, {"w": 4, "p": 2, "s": 3, "r": "8–10", "rpe": "7", "note": "Nýjar æfingar: byrjið aðeins léttar og lærið tæknina.", "date": "30.11."}, {"w": 5, "p": 2, "s": 3, "r": "8–10", "rpe": "7–8", "note": "Þyngja aðallyftur.", "date": "7.12."}, {"w": 6, "p": 2, "s": 3, "r": "8", "rpe": "8", "note": "Hægt niður (3 sek) í aðallyftu.", "date": "14.12."}, {"w": 7, "p": 3, "s": 3, "r": "6–8", "rpe": "7", "note": "Nýjar æfingar, þyngri lyftur.", "date": "21.12."}, {"w": 8, "p": 3, "s": 3, "r": "6–8", "rpe": "8", "note": "Þyngja aðallyftur og einfóta æfingar.", "date": "28.12."}, {"w": 9, "p": 3, "s": 3, "r": "6", "rpe": "8", "note": "Þyngsta vika fasans.", "date": "4.1."}, {"w": 10, "p": 4, "s": 3, "r": "5–6", "rpe": "7–8", "note": "Þungt en sprengikraftur upp í hverri endurtekningu.", "date": "11.1."}, {"w": 11, "p": 4, "s": 3, "r": "5–6", "rpe": "8", "note": "Toppvika: þyngst og hraðast.", "date": "18.1."}, {"w": 12, "p": 4, "s": 2, "r": "5–6", "rpe": "6", "note": "Létt vika (2 sett). Lokapróf í æfingu A, berið saman við viku 1.", "date": "25.1."}], "WU": [["Létt skokk eða sipp", "3 mín"], ["Fótasveiflur fram/aftur og til hliðar", "10/fót hvor átt"], ["Mjaðmaopnun (World's greatest stretch)", "4/hlið"], ["Mjaðmalyfta (glute bridge)", "10"], ["Einfóta réttstöðulyfta án þyngdar", "5/fót"], ["Ökklahopp á staðnum", "2 × 15"]], "T": ["Einfóta kálfalyftur á tröppu, hámark (fjöldi/fót)", "Hliðarplanki, hámark (sek/hlið)", "Armbeygjur, hámark (fjöldi)", "Einfóta uppstig á kassa á 30 sek (fjöldi/fót)"]};
+const $=s=>document.querySelector(s);
+const KEY="hkstyrkur_v1";
+let st=JSON.parse(localStorage.getItem(KEY)||"{}");
+st.w=st.w||1; st.s=st.s||"A"; st.done=st.done||{}; st.easy=!!st.easy; st.tests=st.tests||{};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(st));
+const sel=$("#week");
+D.W.forEach(w=>{const o=document.createElement("option");o.value=w.w;o.textContent=`Vika ${w.w} · ${w.date} · Fasi ${w.p}`;sel.appendChild(o)});
+sel.value=st.w;
+sel.addEventListener("change",()=>{st.w=+sel.value;save();render()});
+$("#tA").addEventListener("click",()=>{st.s="A";save();render()});
+$("#tB").addEventListener("click",()=>{st.s="B";save();render()});
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c])}
+function nSets(ex,wk){
+  if(ex.o==="1"){const m=ex.m.match(/^(\d)/);return m?+m[1]:2}
+  return wk.s;
+}
+function dose(ex,wk){
+  // main lift (2A) follows week reps; others keep their prescribed amount
+  const per=ex.m.includes("×")?ex.m.split("×").slice(1).join("×"):ex.m;
+  if(ex.o==="2A") return `${wk.s} × ${wk.r}`;
+  if(ex.o==="1") return ex.m.replace(/×/g," × ");
+  return `${wk.s} × ${per}`;
+}
+function k(){return `${st.w}_${st.s}`}
+function render(){
+  const wk=D.W[st.w-1], S=D[st.s], ph=S.ph[wk.p-1];
+  $("#tA").classList.toggle("on",st.s==="A");$("#tB").classList.toggle("on",st.s==="B");
+  const dk=st.done[k()]=st.done[k()]||{};
+  let h=`<div class="info"><div class="row"><span class="pill">${esc(S.name)} · Fasi ${wk.p}</span><span>${esc(S.focus)}</span></div>
+  <div class="row" style="margin-top:6px"><span>Sett: <b>${wk.s}</b></span><span>Aðallyfta: <b>${esc(wk.r)}</b> endurt.</span><span>Ákefð: <b>RPE ${esc(wk.rpe)}</b></span></div>
+  <div style="margin-top:6px;font-size:.92rem">${esc(wk.note)}</div>
+  <div class="prog"><i id="pb"></i></div><div id="pt" style="font-size:.8rem;color:var(--muted);margin-top:4px"></div></div>
+  <div class="tools"><button class="btn" id="easyBtn">${st.easy?"Fela léttari útgáfu":"Sýna léttari / án búnaðar"}</button><button class="btn" id="resetBtn">Hreinsa æfingu</button></div>
+  <h2>Upphitun · 8–10 mín</h2><div class="card"><ul class="wu">`;
+  D.WU.forEach((w,i)=>{const on=dk["w"+i];h+=`<li data-wu="${i}" class="${on?"on":""}"><span class="chk">${on?"✓":""}</span><span class="t">${esc(w[0])}</span><span class="d">${esc(w[1])}</span></li>`});
+  h+=`</ul></div><h2>Æfingin</h2>`;
+  let i=0;
+  while(i<ph.ex.length){
+    const ex=ph.ex[i];
+    const grp=ex.o==="1"?[ex]:[ex,ph.ex[i+1]].filter(Boolean);
+    i+=grp.length;
+    if(grp.length>1) h+=`<div class="pair"><div class="pairlbl">Ofursett ${ex.o[0]}: ${grp[0].o} → stutt hvíld → ${grp[1].o} → hvíld 60–90 sek · endurtaka</div>`;
+    grp.forEach(e=>{
+      const n=nSets(e,wk);let done=0;let sets="";
+      for(let s=0;s<n;s++){const on=dk[e.o+"_"+s];if(on)done++;sets+=`<button class="set ${on?"on":""}" data-set="${e.o}_${s}" aria-label="Sett ${s+1}">${s+1}</button>`}
+      const rest=(e.o==="1"||e.o.endsWith("B"))?90:20;
+      h+=`<div class="card ${done===n?"done":""}"><div class="top"><div class="ord">${e.o}</div><div style="flex:1"><div class="nm">${esc(e.n)}</div><div class="en">${esc(e.en)} · ${esc(e.mv)}</div>
+      <div class="dose">${esc(dose(e,wk))}${e.o==="1"?" <span>· gæði, full hvíld</span>":` <span>· RPE ${esc(wk.rpe)}</span>`}</div></div></div>
+      <div class="tip">💡 ${esc(e.tip)}</div><div class="easy">↘ Léttari: ${esc(e.easy)}</div>
+      <div class="sets">${sets}<button class="rest" data-rest="${rest}">⏱ ${rest} s hvíld</button></div></div>`;
+    });
+    if(grp.length>1) h+=`</div>`;
+  }
+  if(st.s==="A"&&(st.w===1||st.w===12)){
+    h+=`<h2>Próf · vika ${st.w}</h2><div class="card tests">`;
+    D.T.forEach((t,j)=>{const v1=(st.tests["1_"+j]||""),v12=(st.tests["12_"+j]||"");
+      h+=`<label><span>${esc(t)}${st.w===12&&v1?` <span class="en">(vika 1: ${esc(v1)})</span>`:""}</span><input inputmode="numeric" data-test="${st.w}_${j}" value="${esc(st.w===1?v1:v12)}"></label>`});
+    h+=`</div>`;
+  }
+  h+=`<h2>Grunnreglur</h2><div class="card"><ul class="rules">
+  <li>Klárið hvert sett með 2–3 endurtekningar eftir í tankinum (RPE 7–8).</li>
+  <li>Þegar öll sett nást auðveldlega: þyngið næst.</li>
+  <li>Hopp fyrst á meðan þið eruð fersk – hættið ef þau verða þung.</li>
+  <li>Minnst 48 klst milli A og B. Ekki þunga æfingu daginn fyrir sprett, keppni eða langt hlaup.</li></ul></div>`;
+  const app=$("#app");app.innerHTML=h;app.classList.toggle("showeasy",st.easy);
+  updProg();
+}
+function updProg(){
+  const all=document.querySelectorAll(".set, .wu li").length;
+  const on=document.querySelectorAll(".set.on, .wu li.on").length;
+  const pb=$("#pb");if(pb){pb.style.width=(all?on/all*100:0)+"%";$("#pt").textContent=on===all?"Æfingu lokið – vel gert! 💪":`${on} af ${all} klárað`}
+}
+$("#app").addEventListener("click",e=>{
+  const dk=st.done[k()]=st.done[k()]||{};
+  const s=e.target.closest(".set");
+  if(s){const id=s.dataset.set;dk[id]=!dk[id];save();render();if(dk[id]){const r=s.parentElement.querySelector(".rest");startT(+r.dataset.rest)}return}
+  const w=e.target.closest("[data-wu]");
+  if(w){const id="w"+w.dataset.wu;dk[id]=!dk[id];save();render();return}
+  const r=e.target.closest(".rest");if(r){startT(+r.dataset.rest);return}
+  if(e.target.id==="easyBtn"){st.easy=!st.easy;save();render();return}
+  if(e.target.id==="resetBtn"){st.done[k()]={};save();render();return}
+});
+$("#app").addEventListener("input",e=>{const t=e.target.dataset.test;if(t){st.tests[t]=e.target.value;save()}});
+let tLeft=0,tInt=null;const tm=$("#timer");
+function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(()=>{o.stop();a.close()},300)}catch(_){} if(navigator.vibrate)navigator.vibrate([200,100,200])}
+function tick(){$("#tt").textContent=fmt(Math.max(tLeft,0));if(tLeft<=0){clearInterval(tInt);tm.classList.add("zero");$("#tt").textContent="Áfram!";beep();return}tLeft--}
+function startT(sec){clearInterval(tInt);tLeft=sec;tm.classList.add("show");tm.classList.remove("zero");tick();tInt=setInterval(tick,1000)}
+$("#tplus").addEventListener("click",()=>{tLeft=Math.max(tLeft,0)+15;tm.classList.remove("zero");clearInterval(tInt);tick();tInt=setInterval(tick,1000)});
+$("#tstop").addEventListener("click",()=>{clearInterval(tInt);tm.classList.remove("show","zero")});
+render();
+</script>
+</body>
+</html>
